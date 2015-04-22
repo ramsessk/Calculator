@@ -5,6 +5,10 @@
 //  Created by Steven on 21/4/15.
 //  Copyright (c) 2015 Steven. All rights reserved.
 //
+//
+// TODO:
+//      add clear button
+//      prevent append multiple operation symbol (for example: continued click '+')
 
 import Foundation
 
@@ -84,7 +88,6 @@ class CalulatorBrain
     func performOperation(symbol: String) -> Double? {
         if let operation = knownOps[symbol] {
             opStack.append(operation)
-            println("stack=\(opStack)")
         }
         return evaluate()
     }
