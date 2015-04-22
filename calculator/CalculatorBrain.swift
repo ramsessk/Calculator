@@ -33,11 +33,14 @@ class CalulatorBrain
     private var knownOps = [String:Op]()
     
     init() {
-        knownOps["✖️"] = Op.BinaryOperation("✖️", *)
-        knownOps["➕"] = Op.BinaryOperation("➕", +)
-        knownOps["➗"] = Op.BinaryOperation("➗") {$1 / $0}
-        knownOps["➖"] = Op.BinaryOperation("➖") {$1 - $0}
-        knownOps["✔️"] = Op.UnaryOperation("✔️", sqrt)
+        func learnOp(op: Op) {
+            knownOps[op.description] = op
+        }
+        learnOp(Op.BinaryOperation("✖️", *))
+        learnOp(Op.BinaryOperation("➕", +))
+        learnOp(Op.BinaryOperation("➗") {$1 / $0})
+        learnOp(Op.BinaryOperation("➖") {$1 - $0})
+        learnOp(Op.UnaryOperation("✔️", sqrt))
     }
     
     private func evaluate(ops: [Op]) -> (result: Double?, remainingOps: [Op]) {
@@ -69,7 +72,7 @@ class CalulatorBrain
     
     func evaluate() -> Double? {
         let (result, remainder) = evaluate(opStack)
-        println("\(opStack) = \(result) with \(remainder) left over, count = \(opStack.count)")
+        println("\(opStack) = \(result) with \(remainder) left over, count = \(remainder.count)")
         return result
     }
     
