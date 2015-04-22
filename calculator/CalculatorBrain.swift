@@ -10,10 +10,23 @@ import Foundation
 
 class CalulatorBrain
 {
-    private enum Op {
+    private enum Op: Printable
+    {
         case Operand(Double)
         case UnaryOperation(String, Double -> Double)
         case BinaryOperation(String, (Double, Double) -> Double)
+        var description: String {
+            get {
+                switch(self) {
+                case .Operand(let operand):
+                    return "\(operand)"
+                case .UnaryOperation(let symbol, _):
+                    return symbol
+                case .BinaryOperation(let symbol, _):
+                    return symbol
+                }
+            }
+        }
     }
     
     private var opStack = [Op]()
@@ -56,7 +69,7 @@ class CalulatorBrain
     
     func evaluate() -> Double? {
         let (result, remainder) = evaluate(opStack)
-        
+        println("\(opStack) = \(result) with \(remainder) left over, count = \(opStack.count)")
         return result
     }
     
@@ -68,6 +81,7 @@ class CalulatorBrain
     func performOperation(symbol: String) -> Double? {
         if let operation = knownOps[symbol] {
             opStack.append(operation)
+            println("stack=\(opStack)")
         }
         return evaluate()
     }
