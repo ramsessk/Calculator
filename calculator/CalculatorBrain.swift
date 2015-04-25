@@ -91,4 +91,8 @@ class CalulatorBrain
         }
         return evaluate()
     }
+    
+    func clearAllStack() {
+        opStack = [Op]()
+    }
 }

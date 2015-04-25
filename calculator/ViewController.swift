@@ -25,7 +25,12 @@ class ViewController: UIViewController
             display.text = digit
             userIsInTheMiddleOfTypingANumber = true
         }
-        //println("digit=\(digit)")
+    }
+    
+    @IBAction func clearAll(sender: UIButton) {
+        userIsInTheMiddleOfTypingANumber = false
+        displayValue = 0
+        brain.clearAllStack()
     }
     
     @IBAction func operate(sender: UIButton) {
